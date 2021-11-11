@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  padding: 1rem;
+  border-radius: .5rem;
+  font-size: 2rem;
+}
+
+#mnemonic-block {
+  width: 60%;
+  line-height: 3.5rem;
+  background-color: rgb(83, 80, 80);
+  border-radius: 1em;
+  padding: 1rem;
+  word-spacing: .9em;
+}
+
+.code-block {
+  margin-top: 1rem;
+  width: 90%;
+  word-wrap: break-word;
+  background-color: darkslategrey;
+  padding: .5rem;
+  border-radius: 1em;
+}
+
+.large-text-field {
+  margin-top: 1rem;
+  border-radius: .5rem;
+  font-size: larger;
+  width: 900px;
+  height: 200px;
+}
