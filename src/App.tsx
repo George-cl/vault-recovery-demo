@@ -1,6 +1,6 @@
 import './App.css';
 
-import vaultrecovery from 'vaultrecovery';
+import vaultRecovery from 'vault-recovery';
 import { useState } from 'react';
 
 function App() {
@@ -9,9 +9,9 @@ function App() {
   const [publicKey, setPublicKey] = useState('');
 
   const generateMnemonic = () => {
-    let newMnemonic = vaultrecovery.newMnemonic();
+    let newMnemonic = vaultRecovery.newMnemonic();
     setMnemonic(newMnemonic.join(' '));
-    setPublicKey(vaultrecovery.recoverFromMnemonic(newMnemonic, 'ed25519').accountHex());
+    setPublicKey(vaultRecovery.recoverFromMnemonic(newMnemonic, 'ed25519').accountHex());
   }
 
   const verifyMnemonic = () => {
@@ -19,12 +19,19 @@ function App() {
     let mnemonic = textarea.value;
     if (!mnemonic) throw new Error('Invalid mnemonic');
     let mnemonicArr = mnemonic.split(' ');
-    if (mnemonicArr.length !== 24) throw new Error('Invalid mnemonic length');
-    let keypair = vaultrecovery.recoverFromMnemonic(mnemonicArr, 'ed25519');
-    if (keypair.accountHex() !== publicKey) {
-      alert('Verification failure');
-    } else {
-      alert('Verified Mnemonic!');
+    if (mnemonicArr.length !== 24) {
+      alert('Invalid mnemonic length, should be 24 words, received: ' + mnemonicArr.length);
+      return;
+    }
+    try {
+      let keypair = vaultRecovery.recoverFromMnemonic(mnemonicArr, 'ed25519');
+      if (keypair.accountHex() !== publicKey) {
+        alert('Verification failure: Recovered key did not match');
+      } else {
+        alert('Verified Mnemonic!');
+      }
+    } catch (err) {
+      alert('Verification failure: ' + err);
     }
   }
 
